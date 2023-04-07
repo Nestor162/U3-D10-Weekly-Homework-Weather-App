@@ -12,7 +12,7 @@ function App() {
         <Row>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/:city" element={<CityPage />} />
+            <Route path="/city/:city" element={<CityPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Row>

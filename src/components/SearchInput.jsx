@@ -2,9 +2,11 @@ import { Col, Form } from "react-bootstrap";
 import "../App.css";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const SearchInput = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [city, setCity] = useState("");
   const [geocoding, setGeocoding] = useState([]);
@@ -17,11 +19,22 @@ const SearchInput = () => {
       });
   };
 
+  // const fetchWeather = () => {
+  //   fetch(
+  //     `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=c0ec525b97319fc8a90fcad3f3ee5991`
+  //   )
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       console.log(data);
+  //     });
+  // };
+
   useEffect(() => {
     if (geocoding.length > 0) {
       dispatch({ type: "GET_COORDINATES", payload: [geocoding[0].lat, geocoding[0].lon] });
+      navigate(`/city/${city}`);
     }
-  }, [geocoding, dispatch]);
+  }, [geocoding, dispatch, navigate, city]);
 
   return (
     <Col xs={6} className="mx-auto mt-5">
@@ -35,7 +48,6 @@ const SearchInput = () => {
           console.log(city);
           dispatch({ type: "GET_CITY", payload: city });
           fetchCordinates();
-          setCity("");
           // dispatch({ type: "GET_COORDINATES", payload: [geocoding[0].lat, geocoding[0].lon] });
         }}
       >
