@@ -1,4 +1,4 @@
-import { Col, Form } from "react-bootstrap";
+import { Alert, Col, Form } from "react-bootstrap";
 import "../App.css";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -37,7 +37,7 @@ const SearchInput = () => {
   }, [geocoding, dispatch, navigate, city]);
 
   return (
-    <Col xs={6} className="mx-auto mt-5">
+    <Col xs={9} md={7} className="mx-auto mt-5">
       <h1 className="fw-bold">Weather</h1>
       <Form
         className="mb-3"
@@ -58,6 +58,12 @@ const SearchInput = () => {
           onChange={e => setCity(e.target.value)}
         />
       </Form>
+      <Alert variant="warning">
+        <p className="fs-4"> Saved locations will appear here</p>
+        <p className="fs-5">
+          <em> Search for a City and click the "+" sign to add a location</em>
+        </p>
+      </Alert>
     </Col>
   );
 };
