@@ -61,8 +61,8 @@ const WeatherCard = () => {
         <Spinner></Spinner>
       ) : (
         <div>
-          <div className="display-1 fw-bold">{info.main.temp}°</div>
-          <div className="fs-2 fw-bold">{info.weather[0].description}</div>
+          <div className="display-1 fw-bold text-center ps-5">{info.main.temp}°</div>
+          <div className="fs-2 fw-bold text-center">{info.weather[0].description}</div>
           <Row className="mt-5 ">
             <Col xs={4} className=" text-center rounded">
               <div className="info-box p-4">
