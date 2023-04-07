@@ -2,3 +2,12 @@
   border-radius: 10px;
   background-color: #eef2f5;
 }
+
+.errorContainer {
+  height: 100vh;
+  background-image: url("img/cloud-bg.jpg");
+  background-repeat: no-repeat;
+  object-fit: cover;
+  background-size: cover;
+  overflow-y: hidden;
+}
