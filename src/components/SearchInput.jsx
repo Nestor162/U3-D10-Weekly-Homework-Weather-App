@@ -1,18 +1,27 @@
 import { Col, Form } from "react-bootstrap";
 import "../App.css";
-import { useState } from "react";
-// import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 const SearchInput = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const [city, setCity] = useState("");
+  const [geocoding, setGeocoding] = useState([]);
 
   const fetchCordinates = () => {
     fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=c0ec525b97319fc8a90fcad3f3ee5991`)
       .then(response => response.json())
-      .then(data => console.log(data));
+      .then(data => {
+        setGeocoding(data);
+      });
   };
+
+  useEffect(() => {
+    if (geocoding.length > 0) {
+      dispatch({ type: "GET_COORDINATES", payload: [geocoding[0].lat, geocoding[0].lon] });
+    }
+  }, [geocoding, dispatch]);
 
   return (
     <Col xs={6} className="mx-auto mt-5">
@@ -23,7 +32,11 @@ const SearchInput = () => {
         value={city}
         onSubmit={e => {
           e.preventDefault();
+          console.log(city);
+          dispatch({ type: "GET_CITY", payload: city });
           fetchCordinates();
+          setCity("");
+          // dispatch({ type: "GET_COORDINATES", payload: [geocoding[0].lat, geocoding[0].lon] });
         }}
       >
         <Form.Control

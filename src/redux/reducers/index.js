@@ -10,10 +10,17 @@ const coordinatesReducer = (state = initialState, action) => {
     case "GET_COORDINATES":
       return {
         ...state,
-
         search: {
           ...state.search,
-          coordinates: [...state.search.coordinates, action.payload]
+          coordinates: action.payload
+        }
+      };
+    case "GET_CITY":
+      return {
+        ...state,
+        search: {
+          ...state.search,
+          city: action.payload
         }
       };
     default:
