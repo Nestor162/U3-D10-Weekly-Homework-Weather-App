@@ -3,7 +3,8 @@ const initialState = {
     coordinates: [],
     city: ""
   },
-  info: {}
+  info: {},
+  favorites: {}
 };
 
 const coordinatesReducer = (state = initialState, action) => {
@@ -29,6 +30,12 @@ const coordinatesReducer = (state = initialState, action) => {
       return {
         ...state,
         info: action.payload
+      };
+
+    case "ADD-LOCATION":
+      return {
+        ...state,
+        favorites: action.payload
       };
     default:
       return state;
