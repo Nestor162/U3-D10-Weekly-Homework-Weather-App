@@ -2,7 +2,15 @@ import { useEffect, useState } from "react";
 import { Col, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { FiArrowLeftCircle, FiDroplet, FiMapPin, FiPlusCircle, FiThermometer, FiWind } from "react-icons/fi";
+import {
+  FiArrowLeftCircle,
+  FiCheckCircle,
+  FiDroplet,
+  FiMapPin,
+  FiPlusCircle,
+  FiThermometer,
+  FiWind
+} from "react-icons/fi";
 
 const WeatherCard = () => {
   const lat = useSelector(state => state.search.coordinates[0]);
@@ -15,6 +23,9 @@ const WeatherCard = () => {
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
+
+  const [saved, setSaved] = useState(false);
+  const checkSaved = useSelector(state => state.favorites);
 
   const fetchWeather = () => {
     fetch(
@@ -56,8 +67,22 @@ const WeatherCard = () => {
           {/* Per  evitare di passare un oggetto vuoto se l'utente fa click sul pulsante prima che la fetch sia finita, prevedo la seguente condizione*/}
           {loading ? (
             <FiPlusCircle className="fs-1 navIcons" style={{ opacity: "0.5" }} />
+          ) : saved ? (
+            <FiCheckCircle
+              className="fs-1 navIcons"
+              onClick={() => {
+                dispatch({ type: "REMOVE_FROM_FAVORITES", payload: info.sys.id });
+                setSaved(false);
+              }}
+            />
           ) : (
-            <FiPlusCircle className="fs-1 navIcons" onClick={() => dispatch({ type: "ADD-LOCATION", payload: info })} />
+            <FiPlusCircle
+              className="fs-1 navIcons"
+              onClick={() => {
+                dispatch({ type: "ADD-LOCATION", payload: info });
+                setSaved(true);
+              }}
+            />
           )}
         </Col>
       </Row>
@@ -87,7 +112,7 @@ const WeatherCard = () => {
               <div className="info-box p-4">
                 <FiThermometer className="fs-2 mb-3" />
                 <h5>Windchill</h5>
-                <div>{info.main.feels_like}</div>
+                <div>{info.main.feels_like}°</div>
               </div>
             </Col>
           </Row>
