@@ -1,7 +1,7 @@
 import { Alert, Col, Form } from "react-bootstrap";
 import "../App.css";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const SearchInput = () => {
@@ -11,6 +11,9 @@ const SearchInput = () => {
   const [city, setCity] = useState("");
   const [geocoding, setGeocoding] = useState([]);
 
+  const userFavorites = useSelector(state => state.favorites);
+  console.log(userFavorites);
+
   const fetchCordinates = () => {
     fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=c0ec525b97319fc8a90fcad3f3ee5991`)
       .then(response => response.json())
@@ -18,16 +21,6 @@ const SearchInput = () => {
         setGeocoding(data);
       });
   };
-
-  // const fetchWeather = () => {
-  //   fetch(
-  //     `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=c0ec525b97319fc8a90fcad3f3ee5991`
-  //   )
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       console.log(data);
-  //     });
-  // };
 
   useEffect(() => {
     if (geocoding.length > 0) {
@@ -58,12 +51,20 @@ const SearchInput = () => {
           onChange={e => setCity(e.target.value)}
         />
       </Form>
-      <Alert variant="warning">
-        <p className="fs-4"> Saved locations will appear here</p>
-        <p className="fs-5">
-          <em> Search for a City and click the "+" sign to add a location</em>
-        </p>
-      </Alert>
+      {userFavorites.length > 0 ? (
+        <>
+          {userFavorites.map(el => {
+            return <div>{el.name}</div>;
+          })}
+        </>
+      ) : (
+        <Alert variant="warning">
+          <p className="fs-4"> Saved locations will appear here</p>
+          <p className="fs-5">
+            <em> Search for a City and click the "+" sign to add a location</em>
+          </p>
+        </Alert>
+      )}
     </Col>
   );
 };

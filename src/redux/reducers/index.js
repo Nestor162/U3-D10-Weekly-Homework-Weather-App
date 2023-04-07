@@ -4,7 +4,7 @@ const initialState = {
     city: ""
   },
   info: {},
-  favorites: {}
+  favorites: []
 };
 
 const coordinatesReducer = (state = initialState, action) => {
@@ -35,7 +35,7 @@ const coordinatesReducer = (state = initialState, action) => {
     case "ADD-LOCATION":
       return {
         ...state,
-        favorites: action.payload
+        favorites: [...state.favorites, action.payload]
       };
     default:
       return state;
