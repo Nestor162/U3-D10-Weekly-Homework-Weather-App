@@ -53,7 +53,12 @@ const WeatherCard = () => {
           </h1>
         </Col>
         <Col className="text-end">
-          <FiPlusCircle className="fs-1 navIcons" />
+          {/* Per  evitare di passare un oggetto vuoto se l'utente fa click sul pulsante prima che la fetch sia finita, prevedo la seguente condizione*/}
+          {loading ? (
+            <FiPlusCircle className="fs-1 navIcons" style={{ opacity: "0.5" }} />
+          ) : (
+            <FiPlusCircle className="fs-1 navIcons" onClick={() => dispatch({ type: "ADD-LOCATION", payload: info })} />
+          )}
         </Col>
       </Row>
 
