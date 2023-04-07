@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Col, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FiArrowLeftCircle, FiDroplet, FiMapPin, FiPlusCircle, FiThermometer, FiWind } from "react-icons/fi";
 
 const WeatherCard = () => {
@@ -13,6 +13,8 @@ const WeatherCard = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
 
   const fetchWeather = () => {
     fetch(
@@ -35,15 +37,23 @@ const WeatherCard = () => {
     <Col xs={9} md={7} className="mx-auto mt-5">
       <Row className=" align-items-center mb-5">
         <Col>
-          <FiArrowLeftCircle className="fs-1" />
+          <FiArrowLeftCircle
+            className="fs-1 navIcons"
+            onClick={() => {
+              navigate("/");
+            }}
+          />
         </Col>
         <Col>
           <h1>
-            <FiMapPin /> {params.city}
+            <span>
+              <FiMapPin className="fs-2" />{" "}
+            </span>
+            {params.city}
           </h1>
         </Col>
         <Col className="text-end">
-          <FiPlusCircle className="fs-1" />
+          <FiPlusCircle className="fs-1 navIcons" />
         </Col>
       </Row>
 
