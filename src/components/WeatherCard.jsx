@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Col, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { FiDroplet, FiMapPin, FiThermometer, FiWind } from "react-icons/fi";
+import { FiArrowLeftCircle, FiDroplet, FiMapPin, FiPlusCircle, FiThermometer, FiWind } from "react-icons/fi";
 
 const WeatherCard = () => {
   const lat = useSelector(state => state.search.coordinates[0]);
@@ -33,10 +33,20 @@ const WeatherCard = () => {
 
   return (
     <Col xs={9} md={7} className="mx-auto mt-5">
-      <h1>
-        <FiMapPin />
-        {params.city}
-      </h1>
+      <Row className=" align-items-center mb-5">
+        <Col>
+          <FiArrowLeftCircle className="fs-1" />
+        </Col>
+        <Col>
+          <h1>
+            <FiMapPin /> {params.city}
+          </h1>
+        </Col>
+        <Col className="text-end">
+          <FiPlusCircle className="fs-1" />
+        </Col>
+      </Row>
+
       {loading ? (
         <Spinner></Spinner>
       ) : (
