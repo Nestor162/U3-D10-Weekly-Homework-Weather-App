@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Col, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { FiDroplet, FiMapPin, FiThermometer, FiWind } from "react-icons/fi";
 
 const WeatherCard = () => {
   const lat = useSelector(state => state.search.coordinates[0]);
@@ -31,8 +32,11 @@ const WeatherCard = () => {
   }, []);
 
   return (
-    <Col xs={6} className="mx-auto mt-5">
-      <h1>{params.city}</h1>
+    <Col xs={9} md={7} className="mx-auto mt-5">
+      <h1>
+        <FiMapPin />
+        {params.city}
+      </h1>
       {loading ? (
         <Spinner></Spinner>
       ) : (
@@ -42,18 +46,21 @@ const WeatherCard = () => {
           <Row className="mt-5 ">
             <Col xs={4} className=" text-center rounded">
               <div className="info-box p-4">
+                <FiWind className="fs-2 mb-3" />
                 <h5>Wind</h5>
-                <div>{info.wind.speed}km / h</div>
+                <div>{info.wind.speed} km/h</div>
               </div>
             </Col>
             <Col xs={4} className="text-center rounded ">
               <div className="info-box p-4">
+                <FiDroplet className="fs-2 mb-3" />
                 <h5>Humidity</h5>
                 <div>{info.main.humidity}%</div>
               </div>
             </Col>
             <Col xs={4} className=" text-center rounded ">
               <div className="info-box p-4">
+                <FiThermometer className="fs-2 mb-3" />
                 <h5>Windchill</h5>
                 <div>{info.main.feels_like}</div>
               </div>
