@@ -45,7 +45,7 @@ const WeatherCard = () => {
           />
         </Col>
         <Col>
-          <h1>
+          <h1 className="text-nowrap">
             <span>
               <FiMapPin className="fs-2" />{" "}
             </span>
@@ -69,21 +69,21 @@ const WeatherCard = () => {
           <div className="display-1 fw-bold text-center ps-5">{info.main.temp}°</div>
           <div className="fs-2 fw-bold text-center">{info.weather[0].description}</div>
           <Row className="mt-5 ">
-            <Col xs={4} className=" text-center rounded">
+            <Col xs={12} sm={4} className=" text-center rounded">
               <div className="info-box p-4">
                 <FiWind className="fs-2 mb-3" />
                 <h5>Wind</h5>
                 <div>{info.wind.speed} km/h</div>
               </div>
             </Col>
-            <Col xs={4} className="text-center rounded ">
+            <Col xs={12} sm={4} className="text-center rounded ">
               <div className="info-box p-4">
                 <FiDroplet className="fs-2 mb-3" />
                 <h5>Humidity</h5>
                 <div>{info.main.humidity}%</div>
               </div>
             </Col>
-            <Col xs={4} className=" text-center rounded ">
+            <Col xs={12} sm={4} className=" text-center rounded ">
               <div className="info-box p-4">
                 <FiThermometer className="fs-2 mb-3" />
                 <h5>Windchill</h5>
