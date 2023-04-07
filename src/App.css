@@ -26,3 +26,18 @@
 .navIcons {
   cursor: pointer;
 }
+
+.cityNameCard:hover {
+  text-decoration: underline;
+  color: #d8a524;
+}
+
+.removeIcon:hover {
+  color: #d02525;
+  transition: color 200ms ease-in-out;
+}
+
+.removeIcon {
+  color: unset;
+  transition: color 200ms ease-in-out;
+}
