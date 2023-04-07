@@ -45,7 +45,7 @@ const WeatherCard = () => {
           />
         </Col>
         <Col>
-          <h1 className="text-nowrap">
+          <h1 className="text-nowrap ms-xm-1 ms-lg-5 ps-xl-1 ps-xxl-2">
             <span>
               <FiMapPin className="fs-2" />{" "}
             </span>
@@ -66,7 +66,7 @@ const WeatherCard = () => {
         <Spinner></Spinner>
       ) : (
         <div>
-          <div className="display-1 fw-bold text-center ps-5">{info.main.temp}°</div>
+          <div className="display-1 fw-bold text-center ps-4">{info.main.temp}°</div>
           <div className="fs-2 fw-bold text-center">{info.weather[0].description}</div>
           <Row className="mt-5 ">
             <Col xs={12} sm={4} className=" text-center rounded">
