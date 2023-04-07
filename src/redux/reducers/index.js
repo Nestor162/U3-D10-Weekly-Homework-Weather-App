@@ -37,6 +37,11 @@ const coordinatesReducer = (state = initialState, action) => {
         ...state,
         favorites: [...state.favorites, action.payload]
       };
+    case "REMOVE_FROM_FAVORITES":
+      return {
+        ...state,
+        favorites: state.favorites.filter(value => value.sys.id !== action.payload)
+      };
     default:
       return state;
   }

@@ -1,11 +1,13 @@
 import { Alert, Card, Col } from "react-bootstrap";
 import { FiMinusCircle } from "react-icons/fi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const FavoriteList = () => {
   const userFavorites = useSelector(state => state.favorites);
   console.log(userFavorites);
+
+  const dispatch = useDispatch();
 
   return (
     <Col xs={9} md={7} className="mx-auto mt-5">
@@ -19,7 +21,12 @@ const FavoriteList = () => {
                     <span className="cityNameCard">{el.name}</span>{" "}
                     <span className="text-secondary fs-4">({el.sys.country})</span>
                   </Link>
-                  <FiMinusCircle className="navIcons removeIcon" />
+                  <FiMinusCircle
+                    className="navIcons removeIcon"
+                    onClick={() => {
+                      dispatch({ type: "REMOVE_FROM_FAVORITES", payload: el.sys.id });
+                    }}
+                  />
                 </Card.Header>
                 <Card.Body>
                   <Card.Title className="fs-4"> {el.weather[0].main}</Card.Title>
