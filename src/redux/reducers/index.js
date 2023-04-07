@@ -2,7 +2,8 @@ const initialState = {
   search: {
     coordinates: [],
     city: ""
-  }
+  },
+  info: {}
 };
 
 const coordinatesReducer = (state = initialState, action) => {
@@ -22,6 +23,12 @@ const coordinatesReducer = (state = initialState, action) => {
           ...state.search,
           city: action.payload
         }
+      };
+
+    case "GET_INFO":
+      return {
+        ...state,
+        info: action.payload
       };
     default:
       return state;
