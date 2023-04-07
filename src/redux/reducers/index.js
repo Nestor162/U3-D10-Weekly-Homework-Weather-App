@@ -40,7 +40,7 @@ const coordinatesReducer = (state = initialState, action) => {
     case "REMOVE_FROM_FAVORITES":
       return {
         ...state,
-        favorites: state.favorites.filter(value => value.sys.id !== action.payload)
+        favorites: state.favorites.filter(value => value.id !== action.payload)
       };
     default:
       return state;

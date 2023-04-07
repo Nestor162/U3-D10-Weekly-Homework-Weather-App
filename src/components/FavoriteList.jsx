@@ -24,7 +24,7 @@ const FavoriteList = () => {
                   <FiMinusCircle
                     className="navIcons removeIcon"
                     onClick={() => {
-                      dispatch({ type: "REMOVE_FROM_FAVORITES", payload: el.sys.id });
+                      dispatch({ type: "REMOVE_FROM_FAVORITES", payload: el.id });
                     }}
                   />
                 </Card.Header>

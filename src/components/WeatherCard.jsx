@@ -27,14 +27,23 @@ const WeatherCard = () => {
   const [saved, setSaved] = useState(false);
   const checkSaved = useSelector(state => state.favorites);
 
+  const [selected, setSelected] = useState();
+
+  /* Qui ho usato il metodo some, che verifica se la citta attuale si trova già nei preferiti e in tale caso cambia a true lo stato saved per mostrare l'icona corrispondente */
+  useEffect(() => {
+    const isFavorite = checkSaved.some(city => city.id === info.id);
+    setSaved(isFavorite);
+  }, [checkSaved, info]);
+
   const fetchWeather = () => {
     fetch(
       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=c0ec525b97319fc8a90fcad3f3ee5991&units=metric`
     )
       .then(response => response.json())
       .then(data => {
-        console.log(data);
         dispatch({ type: "GET_INFO", payload: data });
+        setSelected(data);
+        console.log("HAI SELEZIONATO " + data.name);
         setLoading(false);
       });
   };
@@ -64,14 +73,15 @@ const WeatherCard = () => {
           </h1>
         </Col>
         <Col className="text-end">
-          {/* Per  evitare di passare un oggetto vuoto se l'utente fa click sul pulsante prima che la fetch sia finita, prevedo la seguente condizione*/}
+          {/* Per  evitare di passare un oggetto vuoto se l'utente fa click sul pulsante prima che la fetch sia finita,mentre carica mostro il pulsante senza l'onclick. Una volta caricato gestisco anche il 'toggle' del pulsante per salvare la citta */}
           {loading ? (
             <FiPlusCircle className="fs-1 navIcons" style={{ opacity: "0.5" }} />
           ) : saved ? (
             <FiCheckCircle
               className="fs-1 navIcons"
               onClick={() => {
-                dispatch({ type: "REMOVE_FROM_FAVORITES", payload: info.sys.id });
+                dispatch({ type: "REMOVE_FROM_FAVORITES", payload: selected.id });
+                console.log("HAI ELIMINATO " + selected.name);
                 setSaved(false);
               }}
             />
@@ -79,7 +89,8 @@ const WeatherCard = () => {
             <FiPlusCircle
               className="fs-1 navIcons"
               onClick={() => {
-                dispatch({ type: "ADD-LOCATION", payload: info });
+                dispatch({ type: "ADD-LOCATION", payload: selected });
+                console.log("HAI AGGIUNTO ", selected.name);
                 setSaved(true);
               }}
             />
