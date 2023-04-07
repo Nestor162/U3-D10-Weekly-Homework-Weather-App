@@ -22,7 +22,7 @@ const SearchInput = () => {
         type="search"
         value={city}
         onSubmit={e => {
-          e.target.preventDefault();
+          e.preventDefault();
           fetchCordinates();
         }}
       >
