@@ -33,6 +33,8 @@ const SearchInput = () => {
   useEffect(() => {
     if (focus && inputRef.current) {
       inputRef.current.focus();
+    } else {
+      inputRef.current.blur();
     }
   }, [focus, inputRef]);
 
@@ -66,6 +68,7 @@ const SearchInput = () => {
           value={city}
           onChange={e => setCity(e.target.value)}
           ref={inputRef}
+          onBlur={() => dispatch({ type: "INPUT_FOCUS", payload: false })}
         />
       </Form>
     </Col>
