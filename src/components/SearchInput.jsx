@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import icon from "../img/weather_app_logo.png";
+import { FiSearch } from "react-icons/fi";
 
 const SearchInput = () => {
   const dispatch = useDispatch();
@@ -54,7 +55,7 @@ const SearchInput = () => {
         </Col>
       </Row>
       <Form
-        className="mb-3 mt-4"
+        className="mb-3 mt-4 position-relative"
         type="search"
         value={city}
         onSubmit={e => {
@@ -71,7 +72,9 @@ const SearchInput = () => {
           onChange={e => setCity(e.target.value)}
           ref={inputRef}
           onBlur={() => dispatch({ type: "INPUT_FOCUS", payload: false })}
+          className="d-inline-block ps-5 py-2"
         />
+        <FiSearch className="fs-5" style={{ position: "absolute", left: "17px", bottom: "11px" }} />
       </Form>
     </Col>
   );
