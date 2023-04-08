@@ -58,7 +58,7 @@ const FavoriteList = () => {
                 <Card.Body>
                   <Card.Title className="fs-4"> {el.weather[0].main}</Card.Title>
                   <Card.Text>
-                    <div className="fw-bold fs-2">{el.main.temp}°</div>
+                    <span className="fw-bold fs-2">{el.main.temp}°</span>
                   </Card.Text>
                 </Card.Body>
               </Card>
