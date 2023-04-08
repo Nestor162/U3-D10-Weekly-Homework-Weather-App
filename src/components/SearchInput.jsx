@@ -13,6 +13,8 @@ const SearchInput = () => {
   const [geocoding, setGeocoding] = useState([]);
 
   const focus = useSelector(state => state.inputFocus);
+
+  // Uso lo hook useRef per 'selezionare' l'imput e successivamente dargli il focus
   const inputRef = useRef();
 
   const fetchCordinates = () => {
@@ -63,7 +65,7 @@ const SearchInput = () => {
         }}
       >
         <Form.Control
-          placeholder="Enter your city name..."
+          placeholder="Type your city name and press enter"
           aria-label="city"
           value={city}
           onChange={e => setCity(e.target.value)}
