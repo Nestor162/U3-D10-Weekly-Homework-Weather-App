@@ -133,7 +133,7 @@ const WeatherCard = () => {
   }, [loading, info.weather]);
 
   return (
-    <Col xs={9} md={7} className="mx-auto mt-5">
+    <Col xs={9} md={7} className="mx-auto mt-4">
       <Row className=" align-items-center mb-5">
         <Col>
           <FiArrowLeftCircle
@@ -181,12 +181,12 @@ const WeatherCard = () => {
         <Spinner></Spinner>
       ) : (
         <div>
-          <div>
-            <img src={img} alt="weather-icon" />
+          <div className="d-flex justify-content-center">
+            <img src={img} alt="weather-icon" width={"210px"} style={{ marginBlock: "-10px" }} />
           </div>
           <div className="display-1 fw-bold text-center ps-4">{info.main.temp}°</div>
           <div className="fs-2 fw-bold text-center">{info.weather[0].description}</div>
-          <Row className="mt-5 ">
+          <Row className="mt-5 mb-5">
             <Col xs={12} sm={4} className=" text-center rounded">
               <div className="info-box p-4">
                 <FiWind className="fs-2 mb-3" />
