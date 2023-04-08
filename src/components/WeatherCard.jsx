@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import { Col, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +13,18 @@ import {
   FiWind
 } from "react-icons/fi";
 
+import _01d from "../img/weather-icons/01d.png";
+import _01n from "../img/weather-icons/01n.png";
+import _02d from "../img/weather-icons/02d.png";
+import _02n from "../img/weather-icons/02n.png";
+import _03d from "../img/weather-icons/03d.png";
+import _10d from "../img/weather-icons/10d.png";
+import _11d from "../img/weather-icons/11d.png";
+import _11n from "../img/weather-icons/11n.png";
+import _13d from "../img/weather-icons/13d.png";
+import _50d from "../img/weather-icons/50d.png";
+import _default from "../img/weather-icons/default.png";
+
 const WeatherCard = () => {
   const lat = useSelector(state => state.search.coordinates[0]);
   const lon = useSelector(state => state.search.coordinates[1]);
@@ -21,6 +34,8 @@ const WeatherCard = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const [loading, setLoading] = useState(true);
+
+  const [img, setImg] = useState();
 
   const navigate = useNavigate();
 
@@ -52,6 +67,70 @@ const WeatherCard = () => {
     fetchWeather();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Creo un switch per andare a definire le immagine custom in ogni caso possibile
+  useEffect(() => {
+    if (!loading) {
+      switch (info.weather[0].icon) {
+        case "01d":
+          setImg(_01d);
+          break;
+        case "01n":
+          setImg(_01n);
+          break;
+        case "02d":
+          setImg(_02d);
+          break;
+        case "02n":
+          setImg(_02n);
+          break;
+        case "03d":
+          setImg(_03d);
+          break;
+        case "03n":
+          setImg(_03d);
+          break;
+        case "04d":
+          setImg(_03d);
+          break;
+        case "04n":
+          setImg(_03d);
+          break;
+        case "09d":
+          setImg(_10d);
+          break;
+        case "09n":
+          setImg(_10d);
+          break;
+        case "10d":
+          setImg(_10d);
+          break;
+        case "10n":
+          setImg(_10d);
+          break;
+        case "11d":
+          setImg(_11d);
+          break;
+        case "11n":
+          setImg(_11n);
+          break;
+        case "13d":
+          setImg(_13d);
+          break;
+        case "13n":
+          setImg(_13d);
+          break;
+        case "50d":
+          setImg(_50d);
+          break;
+        case "50n":
+          setImg(_50d);
+          break;
+        default:
+          setImg(_default);
+      }
+    }
+  }, [loading, info.weather]);
 
   return (
     <Col xs={9} md={7} className="mx-auto mt-5">
@@ -102,6 +181,9 @@ const WeatherCard = () => {
         <Spinner></Spinner>
       ) : (
         <div>
+          <div>
+            <img src={img} alt="weather-icon" />
+          </div>
           <div className="display-1 fw-bold text-center ps-4">{info.main.temp}°</div>
           <div className="fs-2 fw-bold text-center">{info.weather[0].description}</div>
           <Row className="mt-5 ">
