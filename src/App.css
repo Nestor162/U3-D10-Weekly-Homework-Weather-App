@@ -41,3 +41,33 @@
   color: unset;
   transition: color 200ms ease-in-out;
 }
+
+.welcome-box {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.startButton {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  transform: scale(1);
+  transition: transform 300ms ease-in-out;
+  outline: 2px solid rgb(93, 176, 255);
+  outline-offset: 5px;
+}
+
+.startButton:hover {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  transform: scale(1.1);
+  transition: transform 300ms ease-in-out;
+}
+
+/* COLORI SFNODO CUSTOM */
+.bg-info {
+  background: rgb(111, 184, 251);
+  background: linear-gradient(180deg, rgba(111, 184, 251, 1) 0%, rgba(66, 160, 240, 1) 38%);
+}
+
+.bg-warning,
+.alert-warning {
+  background: rgb(255, 227, 128);
+  background: linear-gradient(180deg, rgba(255, 227, 128, 1) 0%, rgba(247, 208, 70, 1) 49%);
+}
