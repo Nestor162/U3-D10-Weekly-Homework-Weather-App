@@ -1,7 +1,8 @@
-import { Alert, Card, Col } from "react-bootstrap";
+import { Alert, Card, Col, Container } from "react-bootstrap";
 import { FiMinusCircle } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import WelcomeMessage from "./WelcomeMessage";
 
 const FavoriteList = () => {
   const userFavorites = useSelector(state => state.favorites);
@@ -39,12 +40,19 @@ const FavoriteList = () => {
           })}
         </>
       ) : (
-        <Alert variant="warning">
-          <p className="fs-4"> Saved locations will appear here</p>
-          <p className="fs-5">
-            <em> Search for a City and click the "+" sign to add a location</em>
-          </p>
-        </Alert>
+        <>
+          <Container>
+            <WelcomeMessage />
+          </Container>
+          <Container>
+            <Alert variant="warning" className="mt-5">
+              <p className="fs-4"> Saved locations will appear here</p>
+              <p className="fs-5">
+                <em> Search for a City and click the "+" sign to add a location</em>
+              </p>
+            </Alert>
+          </Container>
+        </>
       )}
     </Col>
   );
