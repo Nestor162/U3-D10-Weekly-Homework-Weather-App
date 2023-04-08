@@ -4,7 +4,8 @@ const initialState = {
     city: ""
   },
   info: {},
-  favorites: []
+  favorites: [],
+  inputFocus: false
 };
 
 const coordinatesReducer = (state = initialState, action) => {
@@ -41,6 +42,12 @@ const coordinatesReducer = (state = initialState, action) => {
       return {
         ...state,
         favorites: state.favorites.filter(value => value.id !== action.payload)
+      };
+
+    case "INPUT_FOCUS":
+      return {
+        ...state,
+        inputFocus: action.payload
       };
     default:
       return state;

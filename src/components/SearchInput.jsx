@@ -1,7 +1,7 @@
 import { Col, Form, Row } from "react-bootstrap";
 import "../App.css";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import icon from "../img/weather_app_logo.png";
 
@@ -11,6 +11,9 @@ const SearchInput = () => {
 
   const [city, setCity] = useState("");
   const [geocoding, setGeocoding] = useState([]);
+
+  const focus = useSelector(state => state.inputFocus);
+  const inputRef = useRef();
 
   const fetchCordinates = () => {
     fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=c0ec525b97319fc8a90fcad3f3ee5991`)
@@ -26,6 +29,12 @@ const SearchInput = () => {
       navigate(`/city/${city}`);
     }
   }, [geocoding, dispatch, navigate, city]);
+
+  useEffect(() => {
+    if (focus && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [focus, inputRef]);
 
   return (
     <Col xs={9} md={7} className="mx-auto mt-5">
@@ -56,6 +65,7 @@ const SearchInput = () => {
           aria-label="city"
           value={city}
           onChange={e => setCity(e.target.value)}
+          ref={inputRef}
         />
       </Form>
     </Col>
