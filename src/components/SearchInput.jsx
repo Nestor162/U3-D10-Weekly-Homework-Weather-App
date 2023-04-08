@@ -1,8 +1,9 @@
-import { Col, Form } from "react-bootstrap";
+import { Col, Form, Row } from "react-bootstrap";
 import "../App.css";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import icon from "../img/weather_app_logo.png";
 
 const SearchInput = () => {
   const dispatch = useDispatch();
@@ -28,9 +29,19 @@ const SearchInput = () => {
 
   return (
     <Col xs={9} md={7} className="mx-auto mt-5">
-      <h1 className="fw-bold">Weather</h1>
+      <Row>
+        <Col xs={9}>
+          <h1 className="fw-bold d-inline-block align-middle">Minimal Weather App</h1>
+          <h5 className="ms-1">
+            <em>By Nestor Cicardini</em>
+          </h5>
+        </Col>
+        <Col xs={3} className="d-flex justify-content-end align-items-center">
+          <img src={icon} alt="app icon" className="d-inline-block" style={{ width: "70px" }} />
+        </Col>
+      </Row>
       <Form
-        className="mb-3"
+        className="mb-3 mt-4"
         type="search"
         value={city}
         onSubmit={e => {
