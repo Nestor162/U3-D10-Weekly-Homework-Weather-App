@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
-import { Col, Row, Spinner } from "react-bootstrap";
+import { Alert, Col, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -58,7 +58,6 @@ const WeatherCard = () => {
       .then(data => {
         dispatch({ type: "GET_INFO", payload: data });
         setSelected(data);
-        console.log("HAI SELEZIONATO " + data.name);
         setLoading(false);
       });
   };
@@ -132,9 +131,60 @@ const WeatherCard = () => {
     }
   }, [loading, info.weather]);
 
+  const [showAlert, setShowAlert] = useState(false);
+  const [showAlertRemove, setShowAlertRemove] = useState(false);
+
+  useEffect(() => {
+    if (showAlert) {
+      const timeout = setTimeout(() => setShowAlert(true), 500);
+
+      const timeout2 = setTimeout(() => setShowAlert(false), 2000);
+
+      return () => {
+        clearTimeout(timeout);
+        clearTimeout(timeout2);
+      };
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [saved]);
+
+  useEffect(() => {
+    if (showAlertRemove) {
+      const timeoutRemove1 = setTimeout(() => setShowAlertRemove(true), 500);
+
+      const timeoutRemove2 = setTimeout(() => setShowAlertRemove(false), 2000);
+
+      return () => {
+        clearTimeout(timeoutRemove1);
+        clearTimeout(timeoutRemove2);
+      };
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [saved]);
+
   return (
-    <Col xs={9} md={7} className="mx-auto mt-4">
-      <Row className=" align-items-center mb-5">
+    <Col xs={9} md={7} className="mx-auto" style={{ marginTop: "4rem" }}>
+      {showAlert && (
+        <Alert
+          variant="success"
+          className="position-absolute top-0 end-0 start-0"
+          onClose={() => setShowAlert(false)}
+          dismissible
+        >
+          You saved this city in your Favorites!
+        </Alert>
+      )}
+      {showAlertRemove && (
+        <Alert
+          variant="danger"
+          className="position-absolute top-0 end-0 start-0"
+          onClose={() => setShowAlertRemove(false)}
+          dismissible
+        >
+          You removed this city from your Favorites!
+        </Alert>
+      )}
+      <Row className=" align-items-center mb-3">
         <Col>
           <FiArrowLeftCircle
             className="fs-1 navIcons"
@@ -160,7 +210,8 @@ const WeatherCard = () => {
               className="fs-1 navIcons"
               onClick={() => {
                 dispatch({ type: "REMOVE_FROM_FAVORITES", payload: selected.id });
-                console.log("HAI ELIMINATO " + selected.name);
+                setShowAlert(false);
+                setShowAlertRemove(true);
                 setSaved(false);
               }}
             />
@@ -169,7 +220,8 @@ const WeatherCard = () => {
               className="fs-1 navIcons"
               onClick={() => {
                 dispatch({ type: "ADD-LOCATION", payload: selected });
-                console.log("HAI AGGIUNTO ", selected.name);
+                setShowAlertRemove(false);
+                setShowAlert(true);
                 setSaved(true);
               }}
             />
