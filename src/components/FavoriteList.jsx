@@ -22,7 +22,6 @@ const FavoriteList = () => {
   };
   const handleClick = city => {
     setSelectedCity(city);
-
     fetchCordinates(city);
   };
 
@@ -36,17 +35,51 @@ const FavoriteList = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [geocoding]);
 
+  const getCardColor = weatherId => {
+    switch (weatherId) {
+      case "01d":
+        return "day-sun";
+      case "01n":
+      case "02n":
+      case "03n":
+      case "04n":
+        return "night";
+      case "02d":
+        return "clouds";
+      case "03d":
+      case "04d":
+        return "clouds";
+      case "09d":
+      case "09n":
+      case "10d":
+      case "10n":
+        return "rain";
+      case "11d":
+      case "11n":
+        return "rain";
+      case "13d":
+      case "13n":
+        return "clouds";
+      case "50d":
+      case "50n":
+        return "snow";
+      default:
+        return "snow";
+    }
+  };
+
   return (
     <Col xs={9} md={7} className="mx-auto mt-5">
       {userFavorites.length > 0 ? (
         <>
           {userFavorites.map((el, i) => {
+            const cardColor = getCardColor(el.weather[0].icon);
             return (
-              <Card bg={"light"} key={i} text={"dark"} className="mb-4">
+              <Card className={`favoriteCards mb-4 ${cardColor}`} key={i} text="light">
                 <Card.Header className="fs-3 d-flex justify-content-between align-items-center">
-                  <Link className="text-dark" onClick={() => handleClick(el.name)}>
+                  <Link className="text-light" onClick={() => handleClick(el.name)}>
                     <span className="cityNameCard">{el.name}</span>{" "}
-                    <span className="text-secondary fs-4">({el.sys.country})</span>
+                    <span className="text-light fs-4">({el.sys.country})</span>
                   </Link>
                   <FiMinusCircle
                     className="navIcons removeIcon"
@@ -55,10 +88,15 @@ const FavoriteList = () => {
                     }}
                   />
                 </Card.Header>
-                <Card.Body>
-                  <Card.Title className="fs-4"> {el.weather[0].main}</Card.Title>
+                <Card.Body className="d-flex justify-content-between align-items-center">
+                  <Card.Title className="fs-4">
+                    <div className="fs-3">{el.weather[0].main}</div>
+                    <div className="mt-2 fs-5">
+                      {el.main.temp_min}° / {el.main.temp_max}°
+                    </div>
+                  </Card.Title>
                   <Card.Text>
-                    <span className="fw-bold fs-2">{el.main.temp}°</span>
+                    <span className="fw-bold display-4">{el.main.temp}°</span>
                   </Card.Text>
                 </Card.Body>
               </Card>

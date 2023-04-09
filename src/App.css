@@ -28,8 +28,7 @@
 }
 
 .cityNameCard:hover {
-  text-decoration: underline;
-  color: #d8a524;
+  color: #c51dce;
 }
 
 .removeIcon:hover {
@@ -70,4 +69,60 @@
 .alert-warning {
   background: rgb(255, 227, 128);
   background: linear-gradient(180deg, rgba(255, 227, 128, 1) 0%, rgba(247, 208, 70, 1) 49%);
+}
+
+/* COLORI CARDS */
+.day-sun {
+  background-image: linear-gradient(
+    135deg,
+    hsl(47deg 86% 51%) 0%,
+    hsl(45deg 87% 52%) 21%,
+    hsl(43deg 88% 52%) 30%,
+    hsl(41deg 88% 52%) 39%,
+    hsl(40deg 89% 53%) 46%,
+    hsl(38deg 89% 53%) 54%,
+    hsl(36deg 90% 54%) 61%,
+    hsl(34deg 90% 54%) 69%,
+    hsl(33deg 90% 54%) 79%,
+    hsl(31deg 91% 54%) 100%
+  );
+}
+
+.night {
+  background: rgb(127, 92, 161);
+  background-image: linear-gradient(
+    335deg,
+    hsl(242deg 55% 25%) 0%,
+    hsl(247deg 50% 27%) 3%,
+    hsl(251deg 46% 30%) 7%,
+    hsl(255deg 42% 32%) 12%,
+    hsl(258deg 39% 35%) 21%,
+    hsl(261deg 36% 38%) 34%,
+    hsl(263deg 34% 41%) 56%,
+    hsl(266deg 31% 44%) 80%,
+    hsl(268deg 29% 47%) 93%,
+    hsl(270deg 27% 50%) 100%
+  );
+}
+
+.clouds {
+  background: rgb(113, 184, 255);
+  background: linear-gradient(169deg, rgba(113, 184, 255, 1) 39%, rgba(45, 117, 222, 1) 92%);
+}
+
+.rain {
+  background: rgb(105, 124, 144);
+  background: linear-gradient(169deg, rgba(105, 124, 144, 1) 39%, rgba(63, 83, 113, 1) 92%);
+}
+
+.snow {
+  background: rgb(238, 242, 245);
+  background: linear-gradient(169deg, rgba(238, 242, 245, 1) 39%, rgba(188, 191, 194, 1) 92%);
+}
+
+.favoriteCards {
+  border-radius: 30px;
+  overflow: hidden;
+  border: 0;
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
 }
