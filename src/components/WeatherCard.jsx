@@ -178,8 +178,8 @@ const WeatherCard = () => {
       </Row>
 
       {loading ? (
-        <div className="d-flex justify-content-center">
-          <Spinner style={{ width: "2.5rem", height: "2.5rem" }} />
+        <div className="text-center">
+          <Spinner style={{ width: "3.5rem", height: "3.5rem" }} />
         </div>
       ) : (
         <div>

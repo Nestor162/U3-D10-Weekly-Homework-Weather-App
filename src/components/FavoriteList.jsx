@@ -1,4 +1,4 @@
-import { Alert, Card, Col, Container } from "react-bootstrap";
+import { Alert, Card, Col, Container, Spinner } from "react-bootstrap";
 import { FiMinusCircle } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -9,6 +9,7 @@ const FavoriteList = () => {
   const userFavorites = useSelector(state => state.favorites);
   const [geocoding, setGeocoding] = useState("");
   const [selectedCity, setSelectedCity] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -18,9 +19,11 @@ const FavoriteList = () => {
       .then(response => response.json())
       .then(data => {
         setGeocoding(data);
+        loading(false);
       });
   };
   const handleClick = city => {
+    setLoading(true);
     setSelectedCity(city);
     fetchCordinates(city);
   };
@@ -70,6 +73,12 @@ const FavoriteList = () => {
 
   return (
     <Col xs={9} md={7} className="mx-auto mt-5">
+      {loading && (
+        <Spinner
+          className="position-absolute"
+          style={{ width: "10rem", height: "10rem", top: "50%", left: "42%", zIndex: "10" }}
+        />
+      )}
       {userFavorites.length > 0 ? (
         <>
           {userFavorites.map((el, i) => {
