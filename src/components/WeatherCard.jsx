@@ -44,6 +44,8 @@ const WeatherCard = () => {
 
   const [selected, setSelected] = useState();
 
+  const [error, setError] = useState(false);
+
   /* Qui ho usato il metodo some, che verifica se la citta attuale si trova già nei preferiti e in tale caso cambia a true lo stato saved per mostrare l'icona corrispondente */
   useEffect(() => {
     const isFavorite = checkSaved.some(city => city.id === info.id);
@@ -54,11 +56,38 @@ const WeatherCard = () => {
     fetch(
       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=c0ec525b97319fc8a90fcad3f3ee5991&units=metric`
     )
-      .then(response => response.json())
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          switch (response.status) {
+            case 400:
+              throw new Error("Bad Request: The request could not be understood or was missing required parameters.");
+            case 401:
+              throw new Error("Unauthorized: The API key provided is not valid or has expired.");
+            case 403:
+              throw new Error("Forbidden: The server understood the request, but is refusing to fulfill it.");
+            case 404:
+              throw new Error("Not Found: The requested resource could not be found on the server.");
+            case 429:
+              throw new Error("Too Many Requests: The user has sent too many requests in a given amount of time.");
+            case 500:
+              throw new Error(
+                "Internal Server Error: The server encountered an unexpected condition that prevented it from fulfilling the request."
+              );
+            default:
+              throw new Error("Something went wrong with the fetch call");
+          }
+        }
+      })
       .then(data => {
         dispatch({ type: "GET_INFO", payload: data });
         setSelected(data);
         setLoading(false);
+      })
+      .catch(error => {
+        console.error(error);
+        setError(error);
       });
   };
 
@@ -182,6 +211,11 @@ const WeatherCard = () => {
           dismissible
         >
           You removed this city from your Favorites!
+        </Alert>
+      )}
+      {error && (
+        <Alert variant="danger" className="position-absolute top-0 end-0 start-0">
+          ⚠️ Error: {error.message}
         </Alert>
       )}
       <Row className=" align-items-center mb-3">
