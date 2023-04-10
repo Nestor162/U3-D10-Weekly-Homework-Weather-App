@@ -1,4 +1,4 @@
-import { Col, Form, Row } from "react-bootstrap";
+import { Col, Form, Row, Spinner } from "react-bootstrap";
 import "../App.css";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +12,7 @@ const SearchInput = () => {
 
   const [city, setCity] = useState("");
   const [geocoding, setGeocoding] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const focus = useSelector(state => state.inputFocus);
 
@@ -23,6 +24,7 @@ const SearchInput = () => {
       .then(response => response.json())
       .then(data => {
         setGeocoding(data);
+        setLoading(false);
       });
   };
 
@@ -54,13 +56,19 @@ const SearchInput = () => {
           <img src={icon} alt="app icon" className="d-inline-block" style={{ width: "70px" }} />
         </Col>
       </Row>
+      {loading && (
+        <Spinner
+          className="position-absolute"
+          style={{ width: "10rem", height: "10rem", top: "50%", left: "45%", zIndex: "10" }}
+        />
+      )}
       <Form
         className="mb-3 mt-4 position-relative"
         type="search"
         value={city}
         onSubmit={e => {
           e.preventDefault();
-          console.log(city);
+          setLoading(true);
           dispatch({ type: "GET_CITY", payload: city });
           fetchCordinates();
         }}
