@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 const Forecast = () => {
   const lat = useSelector(state => state.search.coordinates[0]);
   const lon = useSelector(state => state.search.coordinates[1]);
+  const info = useSelector(state => state.info);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -64,24 +65,56 @@ const Forecast = () => {
         </Alert>
       )}
       {!loading && (
-        <Container>
-          {forecast.map((el, index) => (
-            <Row key={index} className="mx-auto col-md-7 col-9 my-4 align-items-center">
-              {index % 4 === 0 && index !== 0 && <hr />}
-              <Col className="text-center">
-                <div className="text-muted">{convertToDate(el.dt).toLocaleString("en-US", { weekday: "short" })}</div>
-                <div className="small">{convertToDate(el.dt).getHours().toLocaleString()}:00</div>
-              </Col>
-              <Col className="ms-3">
-                <div className="fs-5 fw-semibold">{el.weather[0].main}</div>
-                <div className="text-muted fst-italic">{el.weather[0].description}</div>
-              </Col>
-              <Col className="text-end">
-                <span>{el.main.temp_min}° / </span>
-                <span>{el.main.temp_max}°</span>
-              </Col>
-            </Row>
-          ))}
+        <Container id="loadedContent">
+          <h4 className="mx-auto col-md-7 col-9 my-4 align-items-center mb-1">Today:</h4>
+
+          <Row className="mx-auto col-md-7 col-9 align-items-center mb-5 mt-2">
+            {forecast
+              .filter(
+                el =>
+                  convertToDate(el.dt).toLocaleString("en-US", { weekday: "short" }) ===
+                  convertToDate(info.dt).toLocaleString("en-US", { weekday: "short" })
+              )
+              .map((el, index) => (
+                <Col key={index} id="today">
+                  <div className="text-center my-3 border border-3 p-3 rounded">
+                    <div className="small">{convertToDate(el.dt).getHours().toLocaleString()}:00</div>
+                    <div className="fs-5 fw-semibold">{el.weather[0].main}</div>
+                    <div className="text-muted fst-italic">{el.weather[0].description}</div>
+                    <span>{el.main.temp_min}° / </span>
+                    <span>{el.main.temp_max}°</span>
+                  </div>
+                </Col>
+              ))}
+          </Row>
+
+          {forecast
+            .filter(
+              el =>
+                convertToDate(el.dt).toLocaleString("en-US", { weekday: "short" }) !==
+                convertToDate(info.dt).toLocaleString("en-US", { weekday: "short" })
+            )
+            .map((el, index) => (
+              <>
+                <Row className="mx-auto col-md-7 col-9 my-4 align-items-center">
+                  {index % 8 === 0 && index !== 0 && <hr className="my-5 border border-dark border-2" />}
+                  <Col>
+                    <div className="text-muted">
+                      {convertToDate(el.dt).toLocaleString("en-US", { weekday: "short" })}
+                    </div>
+                    <div className="small">{convertToDate(el.dt).getHours().toLocaleString()}:00</div>
+                  </Col>
+                  <Col className="ms-3">
+                    <div className="fs-5 fw-semibold">{el.weather[0].main}</div>
+                    <div className="text-muted fst-italic">{el.weather[0].description}</div>
+                  </Col>
+                  <Col className="text-end">
+                    <span>{el.main.temp_min}° / </span>
+                    <span>{el.main.temp_max}°</span>
+                  </Col>
+                </Row>
+              </>
+            ))}
         </Container>
       )}
     </>
