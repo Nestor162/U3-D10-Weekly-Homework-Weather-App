@@ -15,7 +15,10 @@ const WelcomeMessage = () => {
         <Button
           variant="white"
           className="startButton rounded-circle bg-info"
-          onClick={() => dispatch({ type: "INPUT_FOCUS", payload: true })}
+          onClick={() => {
+            dispatch({ type: "INPUT_FOCUS", payload: true });
+            dispatch({ type: "START_BUTTON_CLICKED", payload: true });
+          }}
         >
           <FiArrowRight className="fs-2 text-light align-self-center" />
         </Button>

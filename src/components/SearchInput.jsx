@@ -16,6 +16,8 @@ const SearchInput = () => {
 
   const focus = useSelector(state => state.inputFocus);
 
+  const clicked = useSelector(state => state.clicked);
+
   // Uso lo hook useRef per 'selezionare' l'imput e successivamente dargli il focus
   const inputRef = useRef();
 
@@ -61,7 +63,7 @@ const SearchInput = () => {
       dispatch({ type: "GET_COORDINATES", payload: [geocoding[0].lat, geocoding[0].lon] });
       navigate(`/city/${city}`);
     }
-  }, [geocoding, dispatch, navigate, city]);
+  }, [geocoding, dispatch, navigate, city, clicked]);
 
   useEffect(() => {
     if (focus && inputRef.current) {
@@ -70,6 +72,18 @@ const SearchInput = () => {
       inputRef.current.blur();
     }
   }, [focus, inputRef]);
+
+  useEffect(() => {
+    if (clicked && city) {
+      setLoading(true);
+      dispatch({ type: "GET_CITY", payload: city });
+      dispatch({ type: "START_BUTTON_CLICKED", payload: false });
+      fetchCordinates();
+    } else {
+      dispatch({ type: "START_BUTTON_CLICKED", payload: false });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clicked, city]);
 
   return (
     <Col xs={9} md={7} className="mx-auto mt-5">

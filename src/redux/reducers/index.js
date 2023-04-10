@@ -5,7 +5,8 @@ const initialState = {
   },
   info: {},
   favorites: [],
-  inputFocus: false
+  inputFocus: false,
+  clicked: false
 };
 
 const coordinatesReducer = (state = initialState, action) => {
@@ -48,6 +49,12 @@ const coordinatesReducer = (state = initialState, action) => {
       return {
         ...state,
         inputFocus: action.payload
+      };
+
+    case "START_BUTTON_CLICKED":
+      return {
+        ...state,
+        clicked: action.payload
       };
     default:
       return state;
