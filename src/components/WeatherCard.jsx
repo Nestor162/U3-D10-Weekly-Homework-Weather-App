@@ -236,7 +236,7 @@ const WeatherCard = () => {
             <span className="position-absolute" style={{ left: "-10px" }}>
               <FiMapPin className="fs-2 align-baseline" />{" "}
             </span>
-            {loading ? <span class="placeholder col-7"></span> : info.name}
+            {loading ? <span className="placeholder col-7"></span> : info.name}
           </h1>
         </Col>
         <Col className="text-end">
