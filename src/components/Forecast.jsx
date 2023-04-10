@@ -66,19 +66,19 @@ const Forecast = () => {
       {!loading && (
         <Container>
           {forecast.map((el, index) => (
-            <Row key={index} className="mx-auto col-md-7 col-9 my-4">
+            <Row key={index} className="mx-auto col-md-7 col-9 my-4 align-items-center">
               {index % 4 === 0 && index !== 0 && <hr />}
               <Col className="text-center">
-                <div>{convertToDate(el.dt).toLocaleDateString()}</div>
-                <div>{convertToDate(el.dt).getHours().toLocaleString()}:00</div>
+                <div className="text-muted">{convertToDate(el.dt).toLocaleString("en-US", { weekday: "short" })}</div>
+                <div className="small">{convertToDate(el.dt).getHours().toLocaleString()}:00</div>
               </Col>
               <Col className="ms-3">
-                <div>{el.weather[0].main}</div>
-                <div>{el.weather[0].description}</div>
+                <div className="fs-5 fw-semibold">{el.weather[0].main}</div>
+                <div className="text-muted fst-italic">{el.weather[0].description}</div>
               </Col>
               <Col className="text-end">
-                <span>{el.main.temp_min} / </span>
-                <span>{el.main.temp_max}</span>
+                <span>{el.main.temp_min}° / </span>
+                <span>{el.main.temp_max}°</span>
               </Col>
             </Row>
           ))}
