@@ -1,6 +1,12 @@
+import Forecast from "./Forecast";
 import WeatherCard from "./WeatherCard";
 
 const CityPage = () => {
-  return <WeatherCard />;
+  return (
+    <>
+      <WeatherCard />;
+      <Forecast />
+    </>
+  );
 };
 export default CityPage;
