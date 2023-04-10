@@ -227,13 +227,13 @@ const WeatherCard = () => {
             }}
           />
         </Col>
-        <Col>
+        <Col className="ms-0 ms-xl-5">
           <h1
             id="cityName"
-            className="text-nowrap position-relative ps-3 ps-md-4"
-            style={{ marginLeft: "40px", maxWidth: "200px" }}
+            className="text-nowrap text-center position-relative ps-3 ps-md-4"
+            style={{ maxWidth: "200px" }}
           >
-            <span className="position-absolute" style={{ left: "-20px" }}>
+            <span className="position-absolute" style={{ left: "-10px" }}>
               <FiMapPin className="fs-2 align-baseline" />{" "}
             </span>
             {loading ? <span class="placeholder col-7"></span> : info.name}
