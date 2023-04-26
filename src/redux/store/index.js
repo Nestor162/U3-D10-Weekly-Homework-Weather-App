@@ -1,8 +1,17 @@
+import { persistReducer, persistStore } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 import { configureStore } from "@reduxjs/toolkit";
-import coordinatesReducer from "../reducers";
+import indexReducer from "../reducers";
 
-const store = configureStore({
-  reducer: coordinatesReducer
+const persistConfig = {
+  key: "root",
+  storage
+};
+
+const persistedReducer = persistReducer(persistConfig, indexReducer);
+
+export const store = configureStore({
+  reducer: persistedReducer
 });
 
-export default store;
+export const persistor = persistStore(store);
