@@ -23,7 +23,7 @@ const SearchInput = () => {
 
   const [error, setError] = useState(false);
   const fetchCordinates = () => {
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=c0ec525b97319fc8a90fcad3f3ee5991`)
+    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=c0ec525b97319fc8a90fcad3f3ee5991`)
       .then(response => {
         if (response.ok) {
           return response.json();
