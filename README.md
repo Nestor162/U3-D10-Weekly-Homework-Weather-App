@@ -36,23 +36,6 @@ The app is built using the following technologies:
 - React Bootstrap 2.7.2
 - Redux
 
-## How to Install
-
-To install the app, follow these steps:
-
-1.  Clone the repository to your local machine.
-2.  Open the terminal and navigate to the project directory.
-3.  Run the command `npm install` to install the required dependencies.
-4.  Run the command `npm start` to start the app.
-
-## API Key
-
-To use the Open Weather API, you will need to obtain an API key from the [Open Weather website](https://openweathermap.org/). Once you have obtained the API key, create a `.env` file in the root directory of the project and add the following line:
-
-`REACT_APP_WEATHER_API_KEY=<your_api_key_here>`
-
-Replace `<your_api_key_here>` with your actual API key.
-
 ## About the Author
 
 My name is Nestor Cicardini and I'm a full-stack programming student from Argentina. This weather app is one of my projects that I'm excited to share with you. I'm passionate about technology and programming, and I'm always looking for ways to expand my skills and knowledge in the field. If you have any questions or feedback about the app, feel free to reach out to me!
